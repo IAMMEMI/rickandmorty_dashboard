@@ -2,7 +2,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 import { colors } from "constants/colors";
 
-export default responsiveFontSizes(
+export const theme = responsiveFontSizes(
   createTheme({
     breakpoints: {
       values: {
@@ -16,25 +16,30 @@ export default responsiveFontSizes(
     },
     palette: {
       primary: {
-        main: colors.DARKGREY,
-        light: colors.WHITESMOKE,
-        dark: colors.DARKGREY,
+        main: colors.RICK_BLACK,
+        light: colors.PALE_SILVER,
+        dark: colors.DARK_GREY,
       },
       secondary: {
-        main: colors.GAINSBORO,
+        main: colors.ORANGE,
       },
       success: {
-        main: colors.YELLOWGREEN,
+        main: colors.PALE_SILVER,
       },
       error: {
-        main: colors.GOLEDNROD,
+        main: colors.RED,
       },
       background: {
         default: colors.WHITE,
         contrastText: colors.WHITE,
       },
       text: {
-        primary: colors.BLACK,
+        primary: colors.RICK_BLACK,
+      },
+      info: {
+        primary: colors.CINNAMON,
+        secondary: colors.DARK_MAGENTA,
+        main: colors.WHITE,
       },
     },
     typography: {

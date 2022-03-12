@@ -1,0 +1,11 @@
+export const colors = {
+  RICK_BLACK: "#00171f",
+  ORANGE: "#C03A1F",
+  CINNAMON: "#B96672",
+  PALE_SILVER: "#D1BFAE",
+  ISABELLINE: "#EFEAE6",
+  DARK_MAGENTA: "#8B1893",
+  DARK_GREY: '#959B9D',
+  RED:'#FF0000',
+  WHITE: '#FFFFFF'
+};

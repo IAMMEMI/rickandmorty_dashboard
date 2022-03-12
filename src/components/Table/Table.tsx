@@ -10,6 +10,7 @@ import {
   TableCell,
   TableBody,
   Table,
+  Typography,
 } from "@mui/material";
 import { CustomTablePagination } from "./Pagination";
 
@@ -60,10 +61,12 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table>
         <TableHead>
           {headers.map((h) => (
-            <TableCell>{h.value}</TableCell>
+            <TableCell>
+              <Typography variant="h6">{h.value}</Typography>
+            </TableCell>
           ))}
         </TableHead>
         <TableBody>
@@ -74,12 +77,14 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
             <TableRow key={`k-${index}`}>
               {headers.map((h) => (
                 <TableCell component="th" scope="row">
-                  {row[h.key]}
+                  <Typography variant="body1">{row[h.key]}</Typography>
                 </TableCell>
               ))}
               {actions.map((a) => (
                 <TableCell>
                   <Fab
+                    color="info"
+                    size="small"
                     onClick={(e) => {
                       a.action(row.id);
                     }}

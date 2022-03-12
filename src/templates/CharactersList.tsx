@@ -17,11 +17,11 @@ const addToFavorite = (id: number) => {
 
 const actions = [
   {
-    icon: <Info />,
+    icon: <Info sx={{ color: "info.primary" }} />,
     action: (id: number) => openDetail(id),
   },
   {
-    icon: <Add />,
+    icon: <Add sx={{ color: "info.secondary" }} />,
     action: (id: number) => addToFavorite(id),
   },
 ];

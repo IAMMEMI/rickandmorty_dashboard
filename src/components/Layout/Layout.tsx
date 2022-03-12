@@ -4,9 +4,9 @@ import { StyledLayout } from "./Layout.styles";
 
 export const Layout: React.FC = ({ children }) => {
   return (
-    <StyledLayout>
-      <Logo />
-      {children}
-    </StyledLayout>
+      <StyledLayout>
+        <Logo />
+        {children}
+      </StyledLayout>
   );
 };
