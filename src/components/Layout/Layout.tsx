@@ -1,12 +1,16 @@
 import React from "react";
-import { Logo } from "components";
+import { Logo, Menu } from "components";
 import { StyledLayout } from "./Layout.styles";
+import { Grid } from "@mui/material";
 
 export const Layout: React.FC = ({ children }) => {
   return (
-      <StyledLayout>
+    <StyledLayout>
+      <Grid container justifyContent="space-between">
         <Logo />
-        {children}
-      </StyledLayout>
+        <Menu />
+      </Grid>
+      {children}
+    </StyledLayout>
   );
 };

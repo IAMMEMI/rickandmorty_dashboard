@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
-import { Home, Wishlist } from "pages";
+import { Home, Favorites } from "pages";
 
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
@@ -14,7 +14,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<Home />} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
