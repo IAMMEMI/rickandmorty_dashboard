@@ -86,7 +86,7 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
                     color="info"
                     size="small"
                     onClick={(e) => {
-                      a.action(row.id);
+                      a.action(row);
                     }}
                   >
                     {a.icon}
