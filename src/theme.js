@@ -31,7 +31,7 @@ export const theme = responsiveFontSizes(
       },
       background: {
         default: colors.WHITE,
-        contrastText: colors.WHITE,
+        contrastText: colors.RICK_BLACK,
       },
       text: {
         primary: colors.RICK_BLACK,

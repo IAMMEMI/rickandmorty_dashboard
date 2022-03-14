@@ -1,20 +1,27 @@
 import React from "react";
 import { CustomTable, ITableBodyElement } from "components";
-import { CharacterTableHeader, ICharacter } from "./character.interfaces";
+import {
+  CharacterTableHeader,
+  ICharacter,
+  CharacterResponse,
+} from "./character.interfaces";
 import { Info, Add } from "@mui/icons-material";
 import { CharacterModal } from "./CharacterModal";
-
-interface ICharactersListProps {
-  rows: ICharacter[];
-}
 
 const addToFavorite = (id: number) => {
   console.log(id);
 };
 
-export const CharactersList: React.FC<ICharactersListProps> = ({ rows }) => {
-  const [character, setCharacter] = React.useState({} as ICharacter);
+interface ICharacterList extends CharacterResponse {
+  changePage: Function;
+}
 
+export const CharactersList: React.FC<ICharacterList> = ({
+  results,
+  info,
+  changePage,
+}) => {
+  const [character, setCharacter] = React.useState({} as ICharacter);
   const actions = [
     {
       icon: <Info sx={{ color: "info.primary" }} />,
@@ -29,9 +36,14 @@ export const CharactersList: React.FC<ICharactersListProps> = ({ rows }) => {
   return (
     <>
       <CustomTable
-        rows={rows as unknown as ITableBodyElement[]}
+        rows={
+          (results as unknown as ITableBodyElement[]) ||
+          ([] as ITableBodyElement[])
+        }
         headers={CharacterTableHeader}
         actions={actions}
+        paginationInfo={info}
+        changePage={changePage}
       />
       <CharacterModal character={character} />
     </>
