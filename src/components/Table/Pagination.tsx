@@ -3,8 +3,6 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 interface ITablePaginationActionsProps {
   count: number;
-  /* page: number;
-   */
   onPageChange: (
     event: React.ChangeEvent<unknown>,
     newPage: number

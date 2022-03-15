@@ -22,7 +22,8 @@ export const Home: React.FC = () => {
   };
 
   const changePage = async (value: string) => {
-    console.log("value", value);
+    const { data } = await characterService.getAll(value);
+    setResponse(data);
   };
 
   return (

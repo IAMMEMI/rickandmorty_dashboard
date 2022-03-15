@@ -5,24 +5,16 @@ import {
   Avatar,
   AccordionSummary,
   AccordionDetails,
-  Box,
-  Modal,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Typography,
   Grid,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { IEpisode } from "./episode.interfaces";
+import { EpisodeService } from "services/episode.service";
+const episodeService = new EpisodeService();
 
 interface ICharacterModalProps {
   character: ICharacter;
@@ -38,16 +30,28 @@ const renderRow = (label: string, value: string) => (
 export const CharacterModal: React.FC<ICharacterModalProps> = ({
   character,
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [episodes, setEpisodes] = React.useState<IEpisode[]>([]);
   const handleClose = () => setOpen(false);
 
   React.useEffect(() => {
-    if (character?.id) setOpen(true);
+    if (character?.id) {
+      const getData = async () => {
+        let episodeList = character.episode
+          .map((e) => e.split("/").pop())
+          .join(",");
+        const { data } = await episodeService.get(episodeList);
+        setEpisodes(data);
+      };
+      getData();
+      setOpen(true);
+    }
   }, [character]);
 
   return (
-    <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>
+    <Dialog fullWidth maxWidth={"md"} open={open} onClose={handleClose}>
+      <DialogTitle>Character detail</DialogTitle>
+      <DialogContent>
         <Grid container sx={{ marginBottom: "20px" }}>
           <Grid item>
             <Avatar src={character.image} sx={{ margin: "0 20px 0 0" }} />
@@ -64,13 +68,12 @@ export const CharacterModal: React.FC<ICharacterModalProps> = ({
             <Typography>Episodes</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ul>
-              <li>Pilot</li> 
-              <li>Pilot2</li>
-            </ul>
+            {episodes.map((i) => (
+              <Typography>{i.name}</Typography>
+            ))}
           </AccordionDetails>
         </Accordion>
-      </Box>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };

@@ -1,13 +1,25 @@
-import { Grid } from "@mui/material";
+import { Grid, styled, Typography } from "@mui/material";
+
+const Link = styled("a")(({ theme }) => ({
+  textDecoration: "none",
+  color: theme.palette.primary.main,
+  "&:hover": {
+    fontStyle: "italic",
+  },
+}));
 
 export const Menu = () => {
   return (
-    <div>
+    <div style={{ alignSelf: "center" }}>
       <Grid item>
-        <a href="/">Home</a>
+        <Link href="/">
+          <Typography variant="h4">Home</Typography>
+        </Link>
       </Grid>
       <Grid item>
-        <a href="/favorites">Favourites</a>
+        <Link href="/favorites">
+          <Typography variant="h4">Favourites</Typography>
+        </Link>
       </Grid>
     </div>
   );

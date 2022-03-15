@@ -5,12 +5,8 @@ import {
   ICharacter,
   CharacterResponse,
 } from "./character.interfaces";
-import { Info, Add } from "@mui/icons-material";
+import { Info, Add, Delete } from "@mui/icons-material";
 import { CharacterModal } from "./CharacterModal";
-
-const addToFavorite = (id: number) => {
-  console.log(id);
-};
 
 interface ICharacterList extends CharacterResponse {
   changePage: Function;
@@ -21,17 +17,57 @@ export const CharactersList: React.FC<ICharacterList> = ({
   info,
   changePage,
 }) => {
-  const [character, setCharacter] = React.useState({} as ICharacter);
+  const [character, setCharacter] = React.useState<ICharacter>(Object);
+  const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
+  React.useEffect(() => {
+    let characters = [];
+    try {
+      characters = JSON.parse(localStorage.getItem("characters") || "");
+    } catch {
+    } finally {
+      setFavorites(characters);
+    }
+  }, []);
+
   const actions = [
     {
-      icon: <Info sx={{ color: "info.primary" }} />,
+      icon: (character: ICharacter) => <Info sx={{ color: "info.primary" }} />,
       action: (character: ICharacter) => setCharacter(character),
     },
     {
-      icon: <Add sx={{ color: "info.secondary" }} />,
-      action: (id: number) => addToFavorite(id),
+      icon: (character: ICharacter) =>
+        !isFavorite(character) ? (
+          <Add sx={{ color: "info.secondary" }} />
+        ) : (
+          <Delete sx={{ color: "info.secondary" }} />
+        ),
+      action: (character: ICharacter) => toggleFavorite(character),
     },
   ];
+
+  const toggleFavorite = (character: ICharacter) => {
+    let characters: ICharacter[] = [...favorites];
+    try {
+      const check = favorites.find((c: ICharacter) => c.id === character.id);
+      if (!check) characters.push(character);
+      else characters = favorites.filter((c) => c.id !== character.id);
+    } catch (ex) {
+      console.error("Error", ex);
+      characters.push(character);
+    } finally {
+      console.log("characters", characters);
+      localStorage.setItem("characters", JSON.stringify(characters));
+      setFavorites(characters);
+    }
+  };
+
+  const isFavorite = (character: ICharacter) => {
+    try {
+      return favorites.find((c: ICharacter) => c.id === character.id);
+    } catch (ex) {
+      return false;
+    }
+  };
 
   return (
     <>

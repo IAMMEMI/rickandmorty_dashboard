@@ -6,7 +6,6 @@ import {
   TableRow,
   TableFooter,
   TableContainer,
-  TablePagination,
   TableCell,
   TableBody,
   Table,
@@ -24,7 +23,7 @@ export interface ITableBodyElement {
 }
 
 interface IActionRow {
-  icon: JSX.Element;
+  icon: (value: any) => JSX.Element;
   action: Function;
 }
 
@@ -33,7 +32,7 @@ interface ICustomTableProps {
   rows: ITableBodyElement[];
   actions: IActionRow[];
   paginationInfo: any;
-  changePage: Function
+  changePage: Function;
 }
 export const CustomTable: React.FC<ICustomTableProps> = ({
   rows,
@@ -42,7 +41,7 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
   paginationInfo,
   changePage,
 }) => {
-  const [page, setPage] = React.useState(0);
+  const [, setPage] = React.useState(0);
   const handleChangePage = (
     event: React.ChangeEvent<unknown> | null,
     newPage: number
@@ -57,7 +56,7 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
         <TableHead>
           {headers.map((h) => (
             <TableCell>
-              <Typography variant="h6">{h.value}</Typography>
+              <Typography variant="h5">{h.value}</Typography>
             </TableCell>
           ))}
         </TableHead>
@@ -78,7 +77,7 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
                       a.action(row);
                     }}
                   >
-                    {a.icon}
+                    {a.icon(row)}
                   </Fab>
                 </TableCell>
               ))}
