@@ -56,7 +56,6 @@ export const CharactersList: React.FC<ICharacterList> = ({
       console.error("Error", ex);
       characters.push(character);
     } finally {
-      console.log("characters", characters);
       localStorage.setItem("characters", JSON.stringify(characters));
       setFavorites(characters);
     }
