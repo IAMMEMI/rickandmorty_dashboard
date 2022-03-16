@@ -1,12 +1,14 @@
-import * as React from "react";
+import { ChangeEvent, FC } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 interface ITablePaginationActionsProps {
   count: number;
-  onPageChange: (event: React.ChangeEvent<unknown>, newPage: number) => void;
+  onPageChange: (event: ChangeEvent<unknown>, newPage: number) => void;
 }
 
-export const CustomTablePagination = (props: ITablePaginationActionsProps) => {
+export const CustomTablePagination: FC<ITablePaginationActionsProps> = (
+  props: ITablePaginationActionsProps
+) => {
   return (
     <Stack spacing={2} style={{ width: "100%" }}>
       <Pagination

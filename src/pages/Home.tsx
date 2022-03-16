@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState, useEffect } from "react";
 import { CircularProgress, styled } from "@mui/material";
 import { Layout, Searchbar } from "components";
 
@@ -15,9 +15,10 @@ const Loading = styled("div")`
   align-items: center;
 `;
 
-export const Home: React.FC = () => {
-  const [response, setResponse] = React.useState<CharacterResponse>(Object);
-  React.useEffect(() => {
+export const Home: FC = () => {
+  const [response, setResponse] = useState<CharacterResponse>(Object);
+  
+  useEffect(() => {
     const getData = async () => {
       const { data } = await characterService.getAll();
       setResponse(data);

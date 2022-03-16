@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState, useEffect } from "react";
 import { Layout, CustomTable, ITableBodyElement } from "components";
 import {
   CharacterTableHeader,
@@ -7,13 +7,13 @@ import {
 
 const rowsPerPage: number = 20;
 
-export const Favorites: React.FC = () => {
-  const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
-  const [paginatedFavorites, setPaginatedFavorites] = React.useState<
-    ICharacter[]
-  >([]);
+export const Favorites: FC = () => {
+  const [favorites, setFavorites] = useState<ICharacter[]>([]);
+  const [paginatedFavorites, setPaginatedFavorites] = useState<ICharacter[]>(
+    []
+  );
 
-  React.useEffect(() => {
+  useEffect(() => {
     let characters = [];
     try {
       characters = JSON.parse(localStorage.getItem("characters") || "");
@@ -40,7 +40,7 @@ export const Favorites: React.FC = () => {
         headers={CharacterTableHeader}
         actions={[]}
         paginationInfo={{
-          pages: Math.round(favorites.length / rowsPerPage) + 1,
+          pages: Math.ceil(favorites.length / rowsPerPage),
         }}
         changePage={(page: number) => changePage(page)}
       />

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FC, useState, useEffect } from "react";
 import { ICharacter } from "./character.interfaces";
 import {
   Accordion,
@@ -27,14 +27,12 @@ const renderRow = (label: string, value: string) => (
   </Typography>
 );
 
-export const CharacterModal: React.FC<ICharacterModalProps> = ({
-  character,
-}) => {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [episodes, setEpisodes] = React.useState<IEpisode[]>([]);
+export const CharacterModal: FC<ICharacterModalProps> = ({ character }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [episodes, setEpisodes] = useState<IEpisode[]>([]);
   const handleClose = () => setOpen(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (character?.id) {
       const getData = async () => {
         let episodeList = character.episode

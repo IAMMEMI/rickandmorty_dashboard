@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState, useEffect } from "react";
 import { CustomTable, ITableBodyElement } from "components";
 import {
   CharacterTableHeader,
@@ -12,15 +12,15 @@ interface ICharacterList extends CharacterResponse {
   changePage: Function;
 }
 
-export const CharactersList: React.FC<ICharacterList> = ({
+export const CharactersList: FC<ICharacterList> = ({
   results,
   info,
   changePage,
 }) => {
-  const [character, setCharacter] = React.useState<ICharacter>(Object);
-  const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
-  
-  React.useEffect(() => {
+  const [character, setCharacter] = useState<ICharacter>(Object);
+  const [favorites, setFavorites] = useState<ICharacter[]>([]);
+
+  useEffect(() => {
     let characters = [];
     try {
       characters = JSON.parse(localStorage.getItem("characters") || "");

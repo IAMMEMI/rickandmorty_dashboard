@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState, ChangeEvent } from "react";
 import {
   TableHead,
   Fab,
@@ -35,16 +35,16 @@ interface ICustomTableProps {
   paginationInfo: any;
   changePage: Function;
 }
-export const CustomTable: React.FC<ICustomTableProps> = ({
+export const CustomTable: FC<ICustomTableProps> = ({
   rows,
   headers,
   actions,
   paginationInfo,
   changePage,
 }) => {
-  const [, setPage] = React.useState<number>(0);
+  const [, setPage] = useState<number>(0);
   const handleChangePage = (
-    event: React.ChangeEvent<unknown> | null,
+    event: ChangeEvent<unknown> | null,
     newPage: number
   ) => {
     changePage(newPage);
