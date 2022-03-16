@@ -53,7 +53,7 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
   const isMobile = useMediaQuery<Theme>((theme) =>
     theme.breakpoints.down("sm")
   );
-  console.log("isMobile", isMobile);
+
   return (
     <TableContainer component={Paper}>
       <Table>
