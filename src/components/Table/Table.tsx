@@ -4,12 +4,13 @@ import {
   Fab,
   Paper,
   TableRow,
-  TableFooter,
   TableContainer,
   TableCell,
   TableBody,
   Table,
   Typography,
+  useMediaQuery,
+  Theme,
 } from "@mui/material";
 import { CustomTablePagination } from "./Pagination";
 
@@ -41,7 +42,7 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
   paginationInfo,
   changePage,
 }) => {
-  const [, setPage] = React.useState(0);
+  const [, setPage] = React.useState<number>(0);
   const handleChangePage = (
     event: React.ChangeEvent<unknown> | null,
     newPage: number
@@ -49,47 +50,91 @@ export const CustomTable: React.FC<ICustomTableProps> = ({
     changePage(newPage);
     setPage(newPage);
   };
-
+  const isMobile = useMediaQuery<Theme>((theme) =>
+    theme.breakpoints.down("sm")
+  );
+  console.log("isMobile", isMobile);
   return (
     <TableContainer component={Paper}>
       <Table>
-        <TableHead>
-          {headers.map((h) => (
-            <TableCell>
-              <Typography variant="h5">{h.value}</Typography>
-            </TableCell>
-          ))}
-        </TableHead>
-        <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={`k-${index}`}>
-              {headers.map((h) => (
-                <TableCell component="th" scope="row">
-                  <Typography variant="body1">{row[h.key]}</Typography>
-                </TableCell>
-              ))}
-              {actions.map((a) => (
+        {isMobile ? (
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={`k-${index}`}>
                 <TableCell>
-                  <Fab
-                    color="info"
-                    size="small"
-                    onClick={(e) => {
-                      a.action(row);
+                  {headers.map((h) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography variant="h6">{h.value}</Typography>
+                      <Typography variant="h6">{row[h.key]}</Typography>
+                    </div>
+                  ))}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
                     }}
                   >
-                    {a.icon(row)}
-                  </Fab>
+                    {actions.map((a) => (
+                      <Fab
+                        style={{ margin: 5 }}
+                        color="info"
+                        size="small"
+                        onClick={(e) => {
+                          a.action(row);
+                        }}
+                      >
+                        {a.icon(row)}
+                      </Fab>
+                    ))}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        ) : (
+          <>
+            <TableHead>
+              {headers.map((h) => (
+                <TableCell>
+                  <Typography variant="h5">{h.value}</Typography>
                 </TableCell>
               ))}
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter>
-          <CustomTablePagination
-            count={paginationInfo?.pages}
-            onPageChange={handleChangePage}
-          />
-        </TableFooter>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => (
+                <TableRow key={`k-${index}`}>
+                  {headers.map((h) => (
+                    <TableCell component="th" scope="row">
+                      <Typography variant="body1">{row[h.key]}</Typography>
+                    </TableCell>
+                  ))}
+                  {actions.map((a) => (
+                    <TableCell>
+                      <Fab
+                        color="info"
+                        size="small"
+                        onClick={(e) => {
+                          a.action(row);
+                        }}
+                      >
+                        {a.icon(row)}
+                      </Fab>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </>
+        )}
+        <CustomTablePagination
+          count={paginationInfo?.pages}
+          onPageChange={handleChangePage}
+        />
       </Table>
     </TableContainer>
   );

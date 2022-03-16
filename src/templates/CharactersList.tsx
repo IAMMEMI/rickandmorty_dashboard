@@ -19,6 +19,7 @@ export const CharactersList: React.FC<ICharacterList> = ({
 }) => {
   const [character, setCharacter] = React.useState<ICharacter>(Object);
   const [favorites, setFavorites] = React.useState<ICharacter[]>([]);
+  
   React.useEffect(() => {
     let characters = [];
     try {
